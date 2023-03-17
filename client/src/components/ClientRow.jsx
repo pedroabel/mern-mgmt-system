@@ -10,6 +10,18 @@ import {
 const ClientRow = ({ client }) => {
   const [deleteClient] = useMutation(DELETE_CLIENT, {
     variables: { id: client.id },
+    // refetchQueries: [{ query: GET_CLIENTS }, { query: GET_PROJECTS }],
+
+    //OPÇÂO CASO HOUVER MULTIPLAS QUERIES
+    update(cache, { data: { deleteClient } }) {
+      const { clients } = cache.readQuery({ query: GET_CLIENTS });
+      cache.writeQuery({
+        query: GET_CLIENTS,
+        data: {
+          clients: clients.filter((client) => client.id !== deleteClient.id),
+        },
+      });
+    },
   });
 
   return (
@@ -27,9 +39,9 @@ const ClientRow = ({ client }) => {
         <td className="px-6 py-4 text-right">
           <button
             onClick={deleteClient}
-            className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+            className="font-medium text-red-600 dark:text-red-500 hover:underline"
           >
-            Edit
+            Deletar
           </button>
         </td>
       </tr>
