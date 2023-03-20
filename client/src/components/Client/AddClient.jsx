@@ -29,6 +29,7 @@ const AddClient = () => {
     }
     addClient(name, email, phone);
     console.log("Cliente adicionado com sucesso");
+    setOpen(false);
     setName("");
     setEmail("");
     setPhone("");

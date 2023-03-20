@@ -27,13 +27,8 @@ const AddProject = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (name === "" || description === "" || status === "") {
-      return alert("Please fill in all fields");
-    }
-
-    console.log("Antes");
     addProject(name, description, clientId, status);
-    console.log("Depois");
+
     setName("");
     setDescription("");
     setStatus("new");
@@ -63,7 +58,7 @@ const AddProject = () => {
             <div className="z-10 w-full max-w-md  bg-white rounded-lg">
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Adicionar Cliente
+                  Adicionar Projeto
                 </h3>
                 <button
                   type="button"
