@@ -10,9 +10,7 @@ import {
 const ClientRow = ({ client }) => {
   const [deleteClient] = useMutation(DELETE_CLIENT, {
     variables: { id: client.id },
-    // refetchQueries: [{ query: GET_CLIENTS }, { query: GET_PROJECTS }],
 
-    //OPÇÂO CASO HOUVER MULTIPLAS QUERIES
     update(cache, { data: { deleteClient } }) {
       const { clients } = cache.readQuery({ query: GET_CLIENTS });
       cache.writeQuery({

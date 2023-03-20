@@ -1,37 +1,34 @@
-import { useState } from "react";
-
 import { useMutation } from "@apollo/client";
-import React from "react";
-import { ADD_CLIENT, GET_CLIENTS } from "../../queries/clientQueries";
+import React, { useState } from "react";
+import { GET_PROJECT, UPDATE_PROJECT } from "../../queries/projectQueries";
 
-const AddClient = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+const EditProject = ({ project }) => {
+  const [name, setName] = useState(project.name);
+  const [description, setDescription] = useState(project.description);
+  const [status, setStatus] = useState(() => {
+    switch (project.status) {
+      case "Not Started":
+        return "new";
+      case "In Progress":
+        return "progress";
+      case "Completed":
+        return "completed";
+      default:
+    }
+  });
 
-  const [addClient] = useMutation(ADD_CLIENT, {
-    variables: { name, email, phone },
-    update(cache, { data: { addClient } }) {
-      const { clients } = cache.readQuery({ query: GET_CLIENTS });
-
-      cache.writeQuery({
-        query: GET_CLIENTS,
-        data: { clients: [...clients, addClient] },
-      });
-    },
+  const [updateProject] = useMutation(UPDATE_PROJECT, {
+    variables: { id: project.id, name, description, status },
+    refetchQueries: [{ query: GET_PROJECT, variables: { id: project.id } }],
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (name === "" || email === "" || phone === "") {
-      return alert("Please fill in all fields");
+    if (!name || !description || !status) {
+      return alert("Please fill out all fields");
     }
-    addClient(name, email, phone);
-    console.log("Cliente adicionado com sucesso");
-    setName("");
-    setEmail("");
-    setPhone("");
+    updateProject(name, description, status);
+    setOpen(false);
   };
 
   const [open, setOpen] = useState(false);
@@ -40,12 +37,12 @@ const AddClient = () => {
     : "hidden";
 
   return (
-    <>
+    <div>
       <button
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-1"
         onClick={() => setOpen(true)}
       >
-        Adicionar
+        Editar
       </button>
       {open ? (
         <div className={showHideClassName}>
@@ -54,7 +51,7 @@ const AddClient = () => {
             <div className="z-10 w-full max-w-md  bg-white rounded-lg">
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Adicionar Cliente
+                  Editar Cliente
                 </h3>
                 <button
                   type="button"
@@ -82,7 +79,7 @@ const AddClient = () => {
                 <div className="p-6 space-y-6">
                   <div className="mb-6">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                      Nome do Cliente
+                      Nome do Projeto
                     </label>
                     <input
                       type="text"
@@ -97,34 +94,50 @@ const AddClient = () => {
 
                   <div className="mb-6">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                      Email do Cliente
-                    </label>
-                    <input
-                      type="email"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      id="email"
-                      placeholder="exemplo@dominio.com"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                      Telefone do Cliente
+                      Descrição
                     </label>
                     <input
                       type="text"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      id="phone"
-                      placeholder="(XX) XXXXX-XXXX "
+                      id="description"
+                      placeholder="Descrição"
                       required
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-6">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                      Status
+                    </label>
+                    <select
+                      id="status"
+                      value={status}
+                      required
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      onChange={(e) => setStatus(e.target.value)}
+                    >
+                      <option defaultValue>Escolha o status do projeto</option>
+                      <option value="new">Não iniciado</option>
+                      <option value="progress">Em Progresso</option>
+                      <option value="completed">Completado</option>
+                    </select>
+                  </div>
+
+                  <div className="mb-6">
+                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                      Cliente
+                    </label>
+                    <input
+                      type="text"
+                      id="disabled-input"
+                      aria-label="disabled input"
+                      className="mb-6 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      value={project.client.name}
+                      disabled
                     />
                   </div>
                 </div>
-
                 <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
                   <button
                     type="reset"
@@ -136,7 +149,7 @@ const AddClient = () => {
                     type="submit"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                   >
-                    Adicionar
+                    Editar
                   </button>
                 </div>
               </form>
@@ -144,8 +157,8 @@ const AddClient = () => {
           </div>
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
-export default AddClient;
+export default EditProject;

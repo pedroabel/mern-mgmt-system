@@ -1,9 +1,9 @@
 import Navbar from "./components/Navbar";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
-import Clients from "./components/Clients";
-import Projects from "./components/Projects";
-import ProjectInfo from "./components/ProjectInfo";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Clients from "./components/Client/Clients";
+import Projects from "./components/Project/Projects";
+import ProjectInfo from "./components/Project/ProjectInfo";
+import { Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 

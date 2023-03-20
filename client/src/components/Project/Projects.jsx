@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import Loading from "../Loading";
 import { GET_PROJECTS } from "../../queries/projectQueries";
 import AddProject from "./AddProject";
+import EditProject from "./EditProject";
 
 const Projects = () => {
   const { loading, error, data } = useQuery(GET_PROJECTS);
@@ -49,25 +50,25 @@ const Projects = () => {
             </thead>
             {data.projects.map((project) => (
               <tbody className="w-full  ">
-                <tr class="bg-white border-b dark:bg-gray-800 hover:bg-gray-100 dark:border-gray-700  hover:w-full dark:hover:bg-gray-600">
-                  <td class="px-6 py-4 font-bold text-base text-slate-700">
+                <tr className="bg-white border-b dark:bg-gray-800 hover:bg-gray-100 dark:border-gray-700  hover:w-full dark:hover:bg-gray-600">
+                  <td className="px-6 py-4 font-bold text-base text-slate-700">
                     {project.name}
                   </td>
                   <th
                     scope="row"
-                    class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
-                    <div class="pl-3">
-                      <div class="text-base font-semibold">
+                    <div className="pl-3">
+                      <div className="text-base font-semibold">
                         {project.client.name}
                       </div>
-                      <div class="font-normal text-gray-500">
+                      <div className="font-normal text-gray-500">
                         {project.client.email}
                       </div>
                     </div>
                   </th>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center">
+                  <td className="px-6 py-4">
+                    <div className="flex items-center">
                       <div
                         className={`h-2.5 w-2.5 rounded-full  mr-2 
                         ${
@@ -85,15 +86,15 @@ const Projects = () => {
                       {project.status}
                     </div>
                   </td>
-                  <td class="px-6 py-4">
+                  <td className="px-6 py-4 flex">
                     <a
                       href={`/projetos/${project.id}`}
-                      class="font-medium text-blue-600 dark:text-blue-500 hover:underline px-1 uppercase "
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-1  "
                     >
                       Ver
                     </a>
-
-                    <EditProject />
+                    |
+                    <EditProject key={project.id} project={project} />
                   </td>
                 </tr>
               </tbody>
