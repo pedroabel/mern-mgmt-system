@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { useMutation } from "@apollo/client";
 import React from "react";
-import { ADD_CLIENT, GET_CLIENTS } from "../queries/clientQueries";
+import { ADD_CLIENT, GET_CLIENTS } from "../../queries/clientQueries";
 
 const AddClient = () => {
   const [name, setName] = useState("");
@@ -147,8 +147,6 @@ const AddClient = () => {
     </>
   );
 
-  //   <>
-  //     <button
   //       className="text-white bg-purple-700 p-1 rounded center"
   //       onClick={() => setOpen(true)}
   //     >

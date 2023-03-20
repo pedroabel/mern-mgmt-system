@@ -5,7 +5,7 @@ import {
   GET_CLIENTS,
   ADD_CLIENT,
   DELETE_CLIENT,
-} from "../queries/clientQueries";
+} from "../../queries/clientQueries";
 
 const ClientRow = ({ client }) => {
   const [deleteClient] = useMutation(DELETE_CLIENT, {
