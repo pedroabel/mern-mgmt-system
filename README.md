@@ -12,8 +12,6 @@ O objetivo deste projeto é apresentar um projeto pessoal de gerenciamento de cl
 ## 💭 - Metodologia
 O projeto consiste em um sistema de gerenciamento de clientes e projetos, com um painel de administração para criar, editar e excluir clientes e projetos. O sistema foi desenvolvido utilizando a stack MERN e a tecnologia GraphQL, que permite uma comunicação mais eficiente entre o frontend e o backend.
 
-O frontend foi desenvolvido em React, com um design intuitivo, permitindo aos usuários uma navegação fácil e rápida pelo sistema. A interface do usuário foi desenvolvida para ser responsiva, permitindo que os usuários acessem o sistema em qualquer dispositivo, seja ele um desktop, laptop, tablet ou smartphone.
-
 O backend foi desenvolvido em Node.js, utilizando o framework Express para a criação de rotas e o GraphQL para a comunicação com o frontend. O banco de dados utilizado foi o MongoDB, um banco de dados NoSQL orientado a documentos, que permite uma modelagem de dados mais flexível e escalável.
 
 
