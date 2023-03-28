@@ -20,6 +20,15 @@ O backend foi desenvolvido em Node.js, utilizando o framework Express para a cri
 O projeto de gerenciamento de clientes e projetos utilizando a stack MERN e a tecnologia GraphQL mostrou-se funcional e fácil de usar, fornecendo aos usuário um sistema de gerenciamento simples. O uso da tecnologia GraphQL permitiu uma comunicação mais eficiente entre o frontend e o backend, resultando em um sistema mais rápido e responsivo. O projeto atingiu seu objetivo de criar um sistema de gerenciamento de clientes e projetos, demonstrando a eficiência da stack MERN e da tecnologia GraphQL para o desenvolvimento de aplicativos web modernos.
 
 
+## 🖼️ - Galeria
+
+![Home](./gallery/home.jpg)
+![Home](./gallery/client.jpg)
+![Home](./gallery/project.jpg)
+![Home](./gallery/project-info.jpg)
+![Home](./gallery/client-add.jpg)
+![Home](./gallery/project-add.jpg)
+
 ## 💬 - Contato
 
 Desenvolvido por Pedro Abel
