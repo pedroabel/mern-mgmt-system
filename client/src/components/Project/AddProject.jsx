@@ -28,6 +28,7 @@ const AddProject = () => {
     e.preventDefault();
 
     addProject(name, description, clientId, status);
+    setOpen(false);
 
     setName("");
     setDescription("");

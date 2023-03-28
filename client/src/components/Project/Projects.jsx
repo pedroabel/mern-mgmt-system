@@ -22,8 +22,8 @@ const Projects = () => {
                 <div>
                   <h1>Projetos</h1>
                   <p className="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">
-                    Confira abaixo a tabela de clientes, contendo informações
-                    sobre seu perfil e comportamento de compra.
+                    Confira abaixo a tabela de projetos, contendo informações
+                    sobre o cliente responsavel e o status do projeto.
                   </p>
                 </div>
 
